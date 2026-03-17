@@ -1,23 +1,50 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
+import { TIngredient, TOrder } from '@utils-types';
+import { useLocation, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../services/store';
+import { selectIngredients } from '../../services/slices/ingredientsSlice';
+import {
+  fetchOrderByNumber,
+  selectOrderModalData
+} from '../../services/slices/orderSlice';
+import { selectFeedOrders } from '../../services/slices/feedSlices';
+import { selectProfileOrders } from '../../services/slices/profileOrderSlice';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора */
-  const orderData = {
-    createdAt: '',
-    ingredients: [],
-    _id: '',
-    status: '',
-    name: '',
-    updatedAt: 'string',
-    number: 0
-  };
+  const { number } = useParams<{ number: string }>();
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const ingredients = useSelector(selectIngredients);
+  const orderModalData = useSelector(selectOrderModalData);
+  const feedOrders = useSelector(selectFeedOrders);
+  const profileOrders = useSelector(selectProfileOrders);
 
-  const ingredients: TIngredient[] = [];
+  const isProfileOrders = location.pathname.includes('/profile/orders');
+  const orders = isProfileOrders ? profileOrders : feedOrders;
 
-  /* Готовим данные для отображения */
+  useEffect(() => {
+    if (number && !orderModalData) {
+      const orderNumber = parseInt(number, 10);
+      const existingOrder = orders.find(
+        (order) => order.number === orderNumber
+      );
+      if (!existingOrder) {
+        dispatch(fetchOrderByNumber(orderNumber));
+      }
+    }
+  }, [number, orderModalData, orders, dispatch]);
+
+  const orderData: TOrder | null = useMemo(() => {
+    if (orderModalData) return orderModalData;
+    if (number) {
+      const orderNumber = parseInt(number, 10);
+      return orders.find((order) => order.number === orderNumber) || null;
+    }
+    return null;
+  }, [orderModalData, number, orders]);
+
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
