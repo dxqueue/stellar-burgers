@@ -1,4 +1,4 @@
-import { TUser } from '@utils-types';
+import { mockUser, mockUser2 } from './mock';
 import userReducer, {
   registerUser,
   loginUser,
@@ -8,16 +8,6 @@ import userReducer, {
   setAuthChecked,
   initialState
 } from '../userSlice';
-
-const mockUser: TUser = {
-  email: 'user_1@yandex.ru',
-  name: 'user_1'
-};
-
-const mockUser2: TUser = {
-  email: 'user_2@yandex.ru',
-  name: 'user_2'
-};
 
 describe('обработка userSlice', () => {
   describe('обработка registerUser', () => {

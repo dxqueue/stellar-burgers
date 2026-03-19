@@ -1,4 +1,4 @@
-import { TOrder } from '@utils-types';
+import { mockOrder, mockOrder2 } from './mock';
 import orderReducer, {
   createOrder,
   fetchOrderByNumber,
@@ -7,34 +7,6 @@ import orderReducer, {
   clearOrderModalData,
   initialState
 } from '../orderSlice';
-
-const mockOrder: TOrder = {
-  _id: '69bad816a64177001b330077',
-  ingredients: [
-    '643d69a5c3f7b9001cfa093c',
-    '643d69a5c3f7b9001cfa0943',
-    '643d69a5c3f7b9001cfa093c'
-  ],
-  status: 'done',
-  name: 'Space краторный бургер',
-  createdAt: '2026-03-18T16:51:34.583Z',
-  updatedAt: '2026-03-18T16:51:34.797Z',
-  number: 103026
-};
-
-const mockOrder2: TOrder = {
-  _id: '69bad681a64177001b330076',
-  ingredients: [
-    '643d69a5c3f7b9001cfa093d',
-    '643d69a5c3f7b9001cfa0943',
-    '643d69a5c3f7b9001cfa093d'
-  ],
-  status: 'done',
-  name: 'Space флюоресцентный бургер',
-  createdAt: '2026-03-18T16:44:49.819Z',
-  updatedAt: '2026-03-18T16:44:50.071Z',
-  number: 103025
-};
 
 describe('обработка orderSlice', () => {
   describe('обработка createOrder', () => {

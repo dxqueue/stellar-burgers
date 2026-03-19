@@ -1,38 +1,8 @@
-import { TOrder } from '@utils-types';
+import { mockOrders } from './mock';
 import profileOrdersReducer, {
   fetchProfileOrders,
   initialState
 } from '../profileOrderSlice';
-
-const mockOrders: TOrder[] = [
-  {
-    _id: '69bad816a64177001b330077',
-    ingredients: [
-      '643d69a5c3f7b9001cfa093c',
-      '643d69a5c3f7b9001cfa0943',
-      '643d69a5c3f7b9001cfa093c'
-    ],
-    status: 'done',
-    name: 'Space краторный бургер',
-    createdAt: '2026-03-18T16:51:34.583Z',
-    updatedAt: '2026-03-18T16:51:34.797Z',
-    number: 103026
-  },
-
-  {
-    _id: '69bad681a64177001b330076',
-    ingredients: [
-      '643d69a5c3f7b9001cfa093d',
-      '643d69a5c3f7b9001cfa0943',
-      '643d69a5c3f7b9001cfa093d'
-    ],
-    status: 'done',
-    name: 'Space флюоресцентный бургер',
-    createdAt: '2026-03-18T16:44:49.819Z',
-    updatedAt: '2026-03-18T16:44:50.071Z',
-    number: 103025
-  }
-];
 
 describe('обработка profileOrdersSlice', () => {
   describe('обработка fetchProfileOrders.pending', () => {
